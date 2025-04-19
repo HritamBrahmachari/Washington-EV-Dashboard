@@ -184,7 +184,7 @@ const ModelDistribution = () => {
   }), []);
 
   return (
-    <div className="p-6 rounded-lg shadow-md bg-gray-800 w-full">
+    <div className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 w-full">
       <h2 className="text-xl font-semibold mb-4 text-white">Top Makes & Model Distribution</h2>
       <div className="h-[382px]">
         {plotConfiguration.categoryLabels.length > 0 && (

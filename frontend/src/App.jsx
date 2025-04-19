@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div>
-      <div className=" dark:bg-gray-900 min-h-screen">
+      <div className=" bg-gray-900 min-h-screen">
         <Navbar />
         <Dashboard />
       </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-// Importing chart components
+
 import CountyChart from '../Charts/CountyChart';
 import EVYearTrend from '../Charts/EVYearTrend';
 import ModelDistribution from '../Charts/ModelDistribution';
@@ -12,22 +12,21 @@ import CityDensityMap from '../Charts/CityDensityMap';
 import ElectricUtilityAnalysis from '../Charts/ElectricUtilityAnalysis';
 import TopModelsChart from '../Charts/TopModelsChart';
 
-// Import the static JSON data
-import evPopulationJson from '../../Electric_Vehicle_Population_Data.json'; // Renamed import
 
+import evPopulationJson from '../../Electric_Vehicle_Population_Data.json'; 
 const Dashboard = () => {
-    // State variables for data, loading status, and summary numbers
-    const [vehiclePopulationData, setVehiclePopulationData] = useState([]); // Renamed state
-    const [pageLoading, setPageLoading] = useState(true); // Renamed state
-    const [summaryMetrics, setSummaryMetrics] = useState({ // Renamed state
+    
+    const [vehiclePopulationData, setVehiclePopulationData] = useState([]);
+    const [pageLoading, setPageLoading] = useState(true); 
+    const [summaryMetrics, setSummaryMetrics] = useState({ 
         totalCount: 0,
         bevCount: 0,
         phevCount: 0,
         avgRange: 0,
     });
 
-    // Function to calculate summary statistics from the dataset
-    const computeSummaryMetrics = useCallback((dataset) => { // Renamed function, used useCallback
+   
+    const computeSummaryMetrics = useCallback((dataset) => { 
         if (!dataset || !Array.isArray(dataset) || dataset.length === 0) {
             setSummaryMetrics({ totalCount: 0, bevCount: 0, phevCount: 0, avgRange: 0 });
             return;
@@ -42,9 +41,9 @@ const Dashboard = () => {
         for (let i = 0; i < dataset.length; i++) {
             const vehicle = dataset[i];
             const vehicleType = vehicle["Electric Vehicle Type"];
-            const electricRange = Number(vehicle["Electric Range"]); // Use Number() consistently
+            const electricRange = Number(vehicle["Electric Range"]); 
 
-            if (vehicleType) { // Check if type exists
+            if (vehicleType) {
                  if (vehicleType.includes('BEV')) {
                     bevTotal++;
                  } else if (vehicleType.includes('PHEV')) {
@@ -66,36 +65,30 @@ const Dashboard = () => {
             phevCount: phevTotal,
             avgRange: averageRange
         });
-    }, []); // Dependency array for useCallback
+    }, []); 
 
-    // Effect to load data when the component mounts
+
     useEffect(() => {
-        const initializeDashboardData = () => { // Renamed inner function
+        const initializeDashboardData = () => { 
             try {
-                // Simulate loading static data
-                // In a real app, this might be an API call
+                
                 setVehiclePopulationData(evPopulationJson);
-                computeSummaryMetrics(evPopulationJson); // Use the callback version
+                computeSummaryMetrics(evPopulationJson); 
 
-            } catch (err) { // Changed variable name
+            } catch (err) {
                 console.error("Failed to load or process EV data:", err);
-                // Optionally set an error state here
+               
             } finally {
-                setPageLoading(false); // Ensure loading is set to false
+                setPageLoading(false); 
             }
         };
 
         initializeDashboardData();
-        // Run this effect only once on mount
-    }, [computeSummaryMetrics]); // Added computeSummaryMetrics to dependencies due to useCallback
+        
+    }, [computeSummaryMetrics]); 
 
 
-    // --- Removed handleDataLoaded as it wasn't being used ---
-    // If data loading was dynamic (e.g., file upload), it would be kept.
-    // const updateEvData = (newData) => {
-    //   setVehiclePopulationData(newData);
-    //   computeSummaryMetrics(newData);
-    // };
+   
 
 
     // Display loading spinner while data is being processed
@@ -111,8 +104,8 @@ const Dashboard = () => {
     // Main dashboard layout
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
-            {/* Header/Title Section - Can be added here if needed */}
-            {/* <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Washington State EV Dashboard</h1> */}
+           
+           
 
             {/* Summary Statistics Cards */}
             <div className="mb-8">
